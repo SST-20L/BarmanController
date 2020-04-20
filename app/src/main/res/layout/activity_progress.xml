@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="menu"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textAllCaps="true"
+        android:textSize="70sp"
+        android:typeface="monospace" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="130dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:minHeight="50dp"
+        android:minWidth="200dp"
+        android:progress="0" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="130dp"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_mono_one"
+        android:layout_below="@+id/progressBar"
+        android:layout_alignLeft="@+id/progressBar"
+        android:textAllCaps="true"
+        android:typeface="monospace"
+        android:gravity="center|center"
+        android:textSize="30sp"
+        android:text="Zakoncz"
+        android:visibility="invisible"/>
+
+</LinearLayout>

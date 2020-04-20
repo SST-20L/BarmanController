@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dip"
+    android:orientation="horizontal"
+    android:weightSum="1"  >
+
+
+    <EditText
+        android:id="@+id/skladnik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Skladnik"
+        android:layout_weight="0.4"
+        android:textSize="30sp"
+        android:clickable="false"
+        android:background="@null"/>
+
+    <EditText
+        android:id="@+id/ilosc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:background="@null"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:hint="100"
+        android:inputType="number"
+        android:textSize="30sp"
+        />
+
+
+</LinearLayout>

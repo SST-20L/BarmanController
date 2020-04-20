@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".NewRecipeActivity"
+    android:orientation="vertical"
+    android:id="@+id/parent">
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="Nowy przepis"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:typeface="monospace" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="left|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:hint="Nazwa przepisu"
+        android:maxLines="1"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:background="@null"/>
+
+    <ListView
+        android:id="@+id/skladniki"
+        android:layout_width="fill_parent"
+        android:layout_height="550dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" >
+    </ListView>
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:onClick="sendBack"
+        android:text="cofnij" />
+</LinearLayout>

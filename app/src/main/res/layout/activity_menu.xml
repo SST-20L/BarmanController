@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="menu"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textAllCaps="true"
+        android:textSize="70sp"
+        android:typeface="monospace" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="70dp"/>
+
+    <TextView
+        android:id="@+id/zaz_przep"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="zarządzaj przepisami"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:clickable="true"
+        android:onClick="handleOnClick"
+        android:background="?attr/selectableItemBackground"/>
+    <TextView
+        android:id="@+id/roz_pol"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="zacznij polewać"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:clickable="true"
+        android:onClick="handleOnClick"
+        android:background="?attr/selectableItemBackground"/>
+    <TextView
+        android:id="@+id/dozowniki"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:lineSpacingExtra="8sp"
+        android:text="ustaw dozowniki"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:clickable="true"
+        android:onClick="handleOnClick"
+        android:background="?attr/selectableItemBackground"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginBottom="150dp" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:onClick="sendExit"
+        android:text="wyjdź" />
+</LinearLayout>
