@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="70dp"/>
+    android:orientation="vertical"
+    android:id="@+id/parent">
 
     <TextView
         android:id="@+id/header"
@@ -13,78 +11,83 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/rubik_mono_one"
         android:gravity="center|center"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:lineSpacingExtra="8sp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:text="menu"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="#9B1D20"
         android:textAllCaps="true"
-        android:textSize="70sp"
-        android:typeface="monospace" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="70dp"/>
+        android:textSize="70sp" />
 
     <TextView
-        android:id="@+id/zaz_przep"
+        android:id="@+id/menu_recipies"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:fontFamily="@font/rubik_mono_one"
         android:gravity="center|center"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:lineSpacingExtra="8sp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#3D2B3D"
         android:text="zarządzaj przepisami"
         android:textAllCaps="true"
         android:textSize="20sp"
-        android:typeface="monospace"
         android:clickable="true"
         android:onClick="handleOnClick"
         android:background="?attr/selectableItemBackground"/>
     <TextView
-        android:id="@+id/roz_pol"
+        android:id="@+id/menu_pour"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:textColor="#3D2B3D"
         android:fontFamily="@font/rubik_mono_one"
         android:gravity="center|center"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:lineSpacingExtra="8sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:text="zacznij polewać"
         android:textAllCaps="true"
         android:textSize="20sp"
-        android:typeface="monospace"
         android:clickable="true"
         android:onClick="handleOnClick"
         android:background="?attr/selectableItemBackground"/>
     <TextView
-        android:id="@+id/dozowniki"
+        android:id="@+id/menu_bottles"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:fontFamily="@font/rubik_mono_one"
         android:gravity="center|center"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:lineSpacingExtra="8sp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#3D2B3D"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:text="ustaw dozowniki"
         android:textAllCaps="true"
         android:textSize="20sp"
-        android:typeface="monospace"
         android:clickable="true"
         android:onClick="handleOnClick"
         android:background="?attr/selectableItemBackground"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="71dp"
-        android:layout_marginBottom="150dp" />
 
-    <Button
-        android:id="@+id/exit"
+    <TextView
+        android:id="@+id/menu_exit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:onClick="sendExit"
-        android:text="wyjdź" />
+        android:layout_height="50dp"
+        android:textColor="#3D2B3D"
+        android:fontFamily="@font/rubik_mono_one"
+        android:gravity="center|center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="wyjście"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:onClick="sendExitMessageAlert"
+        android:background="?attr/selectableItemBackground"/>
 </LinearLayout>

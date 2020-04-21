@@ -1,42 +1,32 @@
-package com.example.uiproject;
+package com.example.uiprojectv2;
 
+import com.example.parentclasses.ParentActivity;
+
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+public class WelcomeScreenActivity extends ParentActivity {
 
-public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState, R.layout.activity_welcome, R.id.parent);
 
-        //disable longpress
-        Button btn = (Button) findViewById(R.id.start);
-        btn.setOnLongClickListener(new View.OnLongClickListener() {
+        //wyłączenie długiego kliknięcia
+        ImageView img = findViewById(R.id.welcome_imgbackground);
+        img.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FullScreencall();
-    }
-
 
     private final static int REQUEST_ENABLE_BT=1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -51,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityIfNeeded(enableBtIntent, REQUEST_ENABLE_BT);
         }
         else{
-            Intent intent = new Intent(this, DeviceSelectWindow.class);
+            Intent intent = new Intent(this, DeviceSelectActivity.class);
             startActivity(intent);
         }
     }
@@ -61,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch(resultCode){
             case RESULT_OK:
-                Intent intent = new Intent(this, DeviceSelectWindow.class);
+                Intent intent = new Intent(this, DeviceSelectActivity.class);
                 startActivity(intent);
                 break;
             case RESULT_CANCELED:
@@ -71,15 +61,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void FullScreencall() {
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            //for new api versions.
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed(true, "Wciśnij ponownie, aby wyjść");
     }
+
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/progress">
+        <clip android:clipOrientation="vertical" android:gravity="bottom">
+            <vector xmlns:android="http://schemas.android.com/apk/res/android"
+                android:height="100dp"
+                android:width="100dp"
+                android:viewportHeight="100"
+                android:viewportWidth="90" >
+                <group
+                    android:name="triableGroup">
+                    <path
+                        android:name="triangle"
+                        android:fillColor="#087E8B"
+                        android:pathData="M 0,0 l 20,100 50,0 20,-100  z" />
+                </group>
+            </vector>
+        </clip>
+    </item>
+    <item>
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:height="100dp"
+            android:width="100dp"
+            android:gravity="center|center"
+            android:viewportHeight="100"
+            android:viewportWidth="90" >
+            <group
+                android:name="triableGroup">
+                <path
+                    android:name="triangle"
+                    android:fillColor="#635D5C"
+                    android:pathData="M 0,0 l 20,100 50,0 20,-100 -3,0 -20,97 -44,0 -20,-97 z" />
+            </group>
+        </vector>
+    </item>
+</layer-list>

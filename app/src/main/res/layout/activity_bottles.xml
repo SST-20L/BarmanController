@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/parent">
+    android:id="@+id/parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,12 +11,13 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/progress_back"
+            android:id="@+id/bottles_back"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_mono_one"
             android:gravity="center|center"
-            android:layout_margin="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:text="@string/left_arrow"
             android:textColor="#3D2B3D"
             android:textAllCaps="true"
@@ -26,7 +27,7 @@
             android:background="?attr/selectableItemBackground"/>
         <TextView
             android:id="@+id/header"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
             android:fontFamily="@font/rubik_mono_one"
@@ -34,7 +35,8 @@
             android:gravity="center|center"
             android:lineSpacingExtra="8sp"
             android:layout_weight="1"
-            android:text="polewanie"
+
+            android:text="dozowniki"
             android:textAllCaps="true"
             android:textSize="25dp"
             android:typeface="monospace" />
@@ -44,65 +46,30 @@
             android:layout_height="10dp" />
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/progress_perc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+    <ListView
         android:layout_margin="10dp"
-        android:fontFamily="@font/rubik_mono_one"
-        android:textColor="#087E8B"
-        android:gravity="center|center"
-        android:text="0%"
-        android:textAllCaps="true"
-        android:textSize="50dp" />
-
-    <ProgressBar
-        android:id="@+id/vertical_progressbar"
-        style="@style/ProgressBarVertical"
+        android:id="@+id/bottles_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center|center"
-        android:max="1000"
-        android:progress="0"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"/>
+        android:clickable="false"
+        android:listSelector="@android:color/transparent">
+    </ListView>
 
     <TextView
-        android:id="@+id/progress_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/rubik_mono_one"
-        android:textColor="#635D5C"
-        android:gravity="center|center"
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:text="Przepis"
-        android:textAllCaps="true"
-        android:textSize="20dp" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="50dp" />
-    <TextView
-        android:id="@+id/progress_close"
+        android:id="@+id/bottles_accept"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/rubik_mono_one"
-        android:textColor="#CDABAD"
+        android:textColor="#3D2B3D"
         android:gravity="center|center"
-        android:text="zakończ"
+        android:onClick="accept"
+        android:text="akceptuj"
         android:textAllCaps="true"
         android:textSize="20sp" />
-
 </LinearLayout>

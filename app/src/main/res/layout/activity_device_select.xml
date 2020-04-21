@@ -2,52 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
+    android:orientation="vertical"
+    android:id="@+id/parent">
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_margin="10dp"
         android:fontFamily="@font/rubik_mono_one"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="#9B1D20"
         android:gravity="center|center"
         android:lineSpacingExtra="8sp"
         android:text="wybór barmana"
         android:textAllCaps="true"
-        android:textSize="30sp"
+        android:textSize="25dp"
         android:typeface="monospace" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
     <ListView
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:id="@+id/device_list"
+        android:layout_margin="10dp"
+        android:id="@+id/device_device_list"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:fontFamily="@font/rubik_mono_one"
+        android:textColor="#635D5C"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:clickable="true">
     </ListView>
-
-    <Space
+    <TextView
+        android:id="@+id/device_exit"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
-    <Button
-        android:id="@+id/exit"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="sendExit"
-        android:text="wyjdź" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/rubik_mono_one"
+        android:textColor="#3D2B3D"
+        android:gravity="center|center"
+        android:text="wyjście"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:typeface="monospace"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:onClick="sendExitMessageAlert" />
 </LinearLayout>

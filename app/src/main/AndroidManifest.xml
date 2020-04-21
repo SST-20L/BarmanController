@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.uiproject">
+    package="com.example.uiprojectv2">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -13,22 +13,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/HiddenTitleTheme">
-        <activity android:name=".NewRecipeActivity"></activity>
-        <activity android:name=".ProgressActivity" />
-        <activity android:name=".BottleActivity" />
-        <activity android:name=".StartActivity" />
-        <activity android:name=".RecipeActivity" />
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@drawable/vertical_progressbar" />
+
+        <activity
+            android:name=".ProgressActivity"
+            android:parentActivityName=".PourActivity" />
+        <activity
+            android:name=".PourActivity"
+            android:parentActivityName=".MenuActivity" />
+        <activity
+            android:name=".NewRecipeActivity"
+            android:parentActivityName=".RecipeActivity" />
+        <activity
+            android:name=".RecipeActivity"
+            android:parentActivityName=".MenuActivity" />
+        <activity
+            android:name=".BottlesActivity"
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".MenuActivity"
-            android:noHistory="false"
-            android:parentActivityName=".DeviceSelectWindow" />
+            android:parentActivityName=".DeviceSelectActivity" />
         <activity
-            android:name=".DeviceSelectWindow"
+            android:name=".DeviceSelectActivity"
             android:noHistory="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".WelcomeScreenActivity" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name=".WelcomeScreenActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

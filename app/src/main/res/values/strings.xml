@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">UIProject</string>
+    <string name="app_name">UIProjectV2</string>
+    <string name="left_arrow">❮</string>
 </resources>
