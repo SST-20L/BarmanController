@@ -19,33 +19,49 @@
 
         <activity
             android:name=".ProgressActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".PourActivity" />
         <activity
             android:name=".PourActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".RecipeDetailsActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".RecipeActivity" />
         <activity
             android:name=".NewRecipeActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".RecipeActivity" />
         <activity
             android:name=".RecipeActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".BottlesActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".MenuActivity"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".DeviceSelectActivity" />
         <activity
             android:name=".DeviceSelectActivity"
             android:noHistory="true"
+            android:screenOrientation="sensorPortrait"
+            tools:ignore="LockedOrientationActivity"
             android:parentActivityName=".WelcomeScreenActivity" />
         <activity
             android:name=".WelcomeScreenActivity"
             android:noHistory="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
