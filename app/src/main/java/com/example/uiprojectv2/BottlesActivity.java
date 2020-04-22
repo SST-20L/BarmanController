@@ -3,10 +3,12 @@ package com.example.uiprojectv2;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.parentclasses.ParentActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +50,7 @@ public class BottlesActivity extends ParentActivity {
     }
 
 
-    public void accept(View view) {
+    public void accept() {
 
         int itemNo = lv.getChildCount();
         for (int i = 0; i < itemNo; i++){
@@ -56,6 +61,14 @@ public class BottlesActivity extends ParentActivity {
         MenuActivity.getBarman().setBottles(bottles);
         savedChange = true;
         adapter.notifyDataSetChanged();
+
+        Toast.makeText(this,"Zapisano zmiany",Toast.LENGTH_SHORT).show();
+        TextView tv = findViewById(R.id.bottles_accept);
+        tv.setTextColor(Color.parseColor("#CDABAD"));
+        tv.setClickable(false);
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, false);
+        tv.setBackgroundResource(outValue.resourceId);
     }
 
     @Override
@@ -102,6 +115,18 @@ public class BottlesActivity extends ParentActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     savedChange = false;
+                    TextView tv = findViewById(R.id.bottles_accept);
+                    tv.setTextColor(Color.parseColor("#3D2B3D"));
+                    tv.setClickable(true);
+                    TypedValue outValue = new TypedValue();
+                    getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                    tv.setBackgroundResource(outValue.resourceId);
+                    tv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            accept();
+                        }
+                    });
                 }
 
                 @Override

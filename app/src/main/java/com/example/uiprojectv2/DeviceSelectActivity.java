@@ -56,7 +56,6 @@ public class DeviceSelectActivity extends ParentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_device_select, R.id.parent);
 
-        System.out.println(devicesArray.size());
         ListView lv = findViewById(R.id.device_device_list);
 
         adapter = new StableArrayAdapter(this, 0, devicesArray);

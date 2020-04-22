@@ -11,7 +11,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/bottles_back"
+            android:id="@+id/details_back"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rubik_mono_one"
@@ -36,7 +36,7 @@
             android:lineSpacingExtra="8sp"
             android:layout_weight="1"
 
-            android:text="dozowniki"
+            android:text="szczegóły"
             android:textAllCaps="true"
             android:textSize="25dp"
             android:typeface="monospace" />
@@ -48,7 +48,7 @@
 
     <ListView
         android:layout_margin="10dp"
-        android:id="@+id/bottles_list"
+        android:id="@+id/details_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -56,18 +56,4 @@
         android:listSelector="@android:color/transparent">
     </ListView>
 
-    <TextView
-        android:id="@+id/bottles_accept"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:fontFamily="@font/rubik_mono_one"
-        android:textColor="#CDABAD"
-        android:gravity="center|center"
-        android:text="akceptuj"
-        android:textAllCaps="true"
-        android:textSize="20sp" />
 </LinearLayout>
