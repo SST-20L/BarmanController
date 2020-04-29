@@ -4,9 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +27,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.objectclasses.BarmanManager;
-import com.example.uiprojectv2.DeviceSelectActivity;
+import com.example.uiprojectv2.BluetoothService;
 import com.example.uiprojectv2.MenuActivity;
 
-public class ParentActivity extends AppCompatActivity {
+public class ParentActivity extends AppCompatActivity{
+    private static final String TAG = "MY-DEB Parent";
+    protected BluetoothService myService;
+    Boolean isBound = false;
+    private int counterBound = 0;
+    private int counterUnbound = 0;
+
+    protected void sendMessageToBarman(String message) {
+        Log.d(TAG, "Sending to microcontroller "+message);
+        if(myService != null){
+            myService.write(message);
+        }
+    }
 
     public void onCreate(Bundle savedInstanceState, int layout, int parent) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -30,6 +52,66 @@ public class ParentActivity extends AppCompatActivity {
         setupUI(findViewById(parent));
     }
 
+    protected void afterServiceConnected(){
+
+    }
+
+
+
+    private ServiceConnection myConnection =new ServiceConnection(){
+
+
+
+        public void onServiceDisconnected(    ComponentName name){
+            isBound = false;
+            myService = null;
+        }
+        public void onServiceConnected(    ComponentName name,    IBinder service){
+            BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) service;
+            myService = binder.getService();
+            isBound = true;
+            afterServiceConnected();
+        }
+    };
+
+
+    protected void enableDeviceList(){
+
+    }
+
+    protected void updateActivity(String msg){
+
+    }
+
+    private final BroadcastReceiver broadcastBluetoothMessage= new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("message");
+
+            switch(message) {
+                case "goToMenu": {
+                    BarmanManager barman = new BarmanManager("Testowy");
+                    Intent newIntent = new Intent(getApplicationContext(), MenuActivity.class);
+                    newIntent.putExtra("Barman", barman);
+                    startActivity(newIntent);
+                    break;
+                }
+                case "enableDeviceList":
+                    enableDeviceList();
+                    break;
+                case "unbound":
+                    if(isBound){
+                        unbindService(myConnection);
+                        isBound = false;
+                    }
+                    break;
+                default : {
+                    Log.d(TAG, "default message for " + message);
+                    updateActivity(message);
+                }
+
+            }
+        }
+    };
 
     public void FullScreencall() {
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
@@ -47,8 +129,33 @@ public class ParentActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         FullScreencall();
+
+        registerReceiver(broadcastBluetoothMessage, new IntentFilter("barman-msg"));
+
+        counterBound = counterBound + 1;
+        Log.d(TAG, "Service bound " + counterBound);
+
+        if(!isBound){
+            Intent intent = new Intent(getApplicationContext(), BluetoothService.class);
+            bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+            isBound = true;
+        }
+
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        counterUnbound = counterUnbound + 1;
+        Log.d(TAG, "Service unbound " + counterUnbound);
+
+        if(isBound){
+            unbindService(myConnection);
+            isBound = false;
+        }
+        unregisterReceiver(broadcastBluetoothMessage);
+    }
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
@@ -100,6 +207,12 @@ public class ParentActivity extends AppCompatActivity {
         }
     }
 
+    void finishService(){
+        if(myService!= null){
+            myService.exit();
+        }
+    }
+
     public void sendBack(View view) {
         this.onBackPressed();
     }
@@ -133,6 +246,7 @@ public class ParentActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        finishService();
                         ParentActivity.super.onBackPressed();
                     }
 

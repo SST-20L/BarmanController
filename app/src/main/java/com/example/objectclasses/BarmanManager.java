@@ -1,12 +1,15 @@
 package com.example.objectclasses;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BarmanManager implements Serializable {
-    //Bottles
-    public String barmanName;
+    private static final String TAG = "MY-DEB BarmanMan";
 
+    public String barmanName;
+    //Bottles
     public ArrayList<String> bottles = new ArrayList<>();
     //Recipies
     public ArrayList<Recipe> recipies = new ArrayList<>();
@@ -72,6 +75,7 @@ public class BarmanManager implements Serializable {
     }
 
     public void setBarmanName(String barmanName) {
+        Log.d(TAG, "Setting barman name" + barmanName);
         this.barmanName = barmanName;
     }
 
@@ -82,5 +86,9 @@ public class BarmanManager implements Serializable {
 
     public void setRecipies(ArrayList<Recipe> recipies) {
         this.recipies = recipies;
+    }
+
+    public void parseMessage(String message) {
+        Log.d(TAG, "Parse message " + message);
     }
 }

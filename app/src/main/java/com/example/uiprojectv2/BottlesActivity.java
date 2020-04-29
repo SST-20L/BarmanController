@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BottlesActivity extends ParentActivity {
-
+    private static final String TAG = "MY-DEB BottleAc";
 
     private ArrayList<String> bottles = new ArrayList<>();;
     private ArrayAdapter<String> adapter;

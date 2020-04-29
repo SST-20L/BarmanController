@@ -3,14 +3,24 @@ package com.example.uiprojectv2;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.objectclasses.BarmanManager;
 import com.example.parentclasses.ParentActivity;
 
 public class MenuActivity extends ParentActivity {
-
+    private static final String TAG = "MY-DEB MenuA";
     private static BarmanManager barman;
+
+    protected void afterServiceConnected(){
+        sendMessageToBarman("hello\r\n");
+    }
+
+    protected void updateActivity(String msg){
+        barman.parseMessage(msg);
+        Log.d(TAG, "Getting message "+ msg);
+    }
 
     @SuppressLint("MissingSuperCall")
     @Override
@@ -44,7 +54,6 @@ public class MenuActivity extends ParentActivity {
     public void onBackPressed(){
         super.onBackPressed(true, "Wciśnij ponownie, aby wyjść");
     }
-
 
     public static BarmanManager getBarman() {
         return MenuActivity.barman;

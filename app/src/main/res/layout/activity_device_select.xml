@@ -17,6 +17,7 @@
         android:textAllCaps="true"
         android:textSize="25dp"
         android:typeface="monospace" />
+
     <ListView
         android:layout_margin="10dp"
         android:id="@+id/device_device_list"
@@ -27,6 +28,7 @@
         android:layout_weight="1"
         android:clickable="true">
     </ListView>
+
     <TextView
         android:id="@+id/device_exit"
         android:layout_width="match_parent"
