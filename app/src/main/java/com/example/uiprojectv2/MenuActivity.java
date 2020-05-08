@@ -14,7 +14,8 @@ public class MenuActivity extends ParentActivity {
     private static BarmanManager barman;
 
     protected void afterServiceConnected(){
-        sendMessageToBarman("hello\r\n");
+        sendMessageToBarman("GET-RECIPES\r\n");
+        sendMessageToBarman("GET-BOTTLES\r\n");
     }
 
     protected void updateActivity(String msg){

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 import com.example.parentclasses.ParentActivity;
 
 public class ProgressActivity extends ParentActivity {
-
+    private static final String TAG = "MY-DEB ProgressA";
     private String selectedRecipe;
 
     private double progress;
@@ -22,6 +24,20 @@ public class ProgressActivity extends ParentActivity {
     private double recipeMaxProgress;
 
     boolean finished = false;
+
+    protected void afterServiceConnected(){
+        Log.d(TAG, "Start pouring " + selectedRecipe);
+        MenuActivity.getBarman().setStartRecipe();
+        sendMessageToBarman("START " + selectedRecipe +"\r\n");
+    }
+
+    protected void updateActivity(String msg){
+        MenuActivity.getBarman().parseMessage(msg);
+        if(MenuActivity.getBarman().checkEndRecipe()){
+            // TODO display msg about end
+            Log.d(TAG, "End recipe "+ selectedRecipe);
+        }
+    }
 
     @SuppressLint("MissingSuperCall")
     @Override

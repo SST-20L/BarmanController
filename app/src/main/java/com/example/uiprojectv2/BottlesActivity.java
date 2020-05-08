@@ -29,8 +29,7 @@ import java.util.List;
 
 public class BottlesActivity extends ParentActivity {
     private static final String TAG = "MY-DEB BottleAc";
-
-    private ArrayList<String> bottles = new ArrayList<>();;
+    private ArrayList<String> bottles = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private ListView lv;
 
@@ -53,12 +52,17 @@ public class BottlesActivity extends ParentActivity {
     public void accept() {
 
         int itemNo = lv.getChildCount();
+
         for (int i = 0; i < itemNo; i++){
             EditText bottleField = (EditText)lv.getChildAt(i).findViewById(R.id.single_edittext);
             String name = bottleField.getText().toString();
-            bottles.set(i,name);
+            if(bottles.get(i) != name){
+                bottles.set(i,name);
+                sendMessageToBarman("SET-BOTTLE "+ i + " " + name + "\r\n");
+            }
         }
         MenuActivity.getBarman().setBottles(bottles);
+
         savedChange = true;
         adapter.notifyDataSetChanged();
 

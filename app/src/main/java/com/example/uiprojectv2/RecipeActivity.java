@@ -120,6 +120,7 @@ public class RecipeActivity extends ParentActivity {
                                 {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        sendMessageToBarman("DELETE_RECIPE " + recipe.getName()+"\r\n");
                                         MenuActivity.getBarman().removeRecipe(recipe.getName());
                                         recipies.clear();
                                         recipies.addAll(MenuActivity.getBarman().getRecipiesForUI());

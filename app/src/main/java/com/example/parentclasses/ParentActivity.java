@@ -195,6 +195,7 @@ public class ParentActivity extends AppCompatActivity{
     public void onBackPressed(boolean noBackActivity, String text) {
         if (noBackActivity) {
             if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                finishService();
                 super.onBackPressed();
                 return;
             } else {

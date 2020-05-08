@@ -17,6 +17,10 @@ public class Recipe implements Serializable {
         }
     }
 
+    public Recipe(String inName){
+        name = inName;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,5 +35,9 @@ public class Recipe implements Serializable {
 
     public void setItems(ArrayList<RecipeItem> items) {
         this.items = items;
+    }
+
+    public void addItem(RecipeItem recipeItem) {
+        this.items.add(recipeItem);
     }
 }

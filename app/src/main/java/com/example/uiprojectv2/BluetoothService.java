@@ -162,8 +162,7 @@ public class BluetoothService extends Service {
     public void failedConnect(){
         Log.d(TAG, "Connect to device failed");
         sendMessageToActivities("enableDeviceList");
-        sendMessageToActivities("goToMenu");
-        sendMessageToActivities("barman test");
+        //sendMessageToActivities("goToMenu");
     }
 
     public void successConnect(){
