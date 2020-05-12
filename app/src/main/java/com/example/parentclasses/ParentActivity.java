@@ -195,7 +195,8 @@ public class ParentActivity extends AppCompatActivity{
     public void onBackPressed(boolean noBackActivity, String text) {
         if (noBackActivity) {
             if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
-                finishService();
+                //jeżeli chcemy wyjść z aplikacji to musimy jeszcze sprawdzić "text", bo w ekranie progresu też tutaj wchodzi jeżeli trwa polewanie
+                if (!text.equals("Wciśnij ponownie, aby cofnąć")) finishService();
                 super.onBackPressed();
                 return;
             } else {

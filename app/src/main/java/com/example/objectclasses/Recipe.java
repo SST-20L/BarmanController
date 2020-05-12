@@ -10,7 +10,7 @@ public class Recipe implements Serializable {
     //utwórz przepis na podstawie listy wprowadzonej w UI (lista obiektów RecipeItem bez ostatniego elementu, który służy jako przycisk "+") oraz nazwy przepisu
     public Recipe(String inName, ArrayList<RecipeItem> list){
         name = inName;
-        for (int i = 0; i < list.size()-1; i++){
+        for (int i = 0; i < list.size(); i++){
             if (!list.get(i).getName().equals("")) {
                 items.add(list.get(i));
             }

@@ -16,39 +16,14 @@ public class BarmanManager implements Serializable {
 
     private boolean isPouringFinished = true;
 
-    //testowy konstruktor
-    public BarmanManager(String inName){
+    //konstruktor
+    public BarmanManager(String inName, Context ctx) throws IOException {
         barmanName = inName;
+        BarmanDBHelper barmanDBHelper = new BarmanDBHelper(ctx);
 
-        //po testach wywalić co niżej
-        bottles.add("?");
-        bottles.add("?");
-        bottles.add("?");
-
-        /*
-        ArrayList<RecipeItem> temp_recipe = new ArrayList<RecipeItem>();
-
-        temp_recipe.add(new RecipeItem("WODA",100));
-        temp_recipe.add(new RecipeItem("WHISKY",200));
-        temp_recipe.add(new RecipeItem("SOK POMARANCZOWY",150));
-        temp_recipe.add(new RecipeItem("+",0));
-        recipies.add(new Recipe("POMARANCZOWA BOMBA ROBIACA WRAZENIE",temp_recipe));
-        temp_recipe.clear();
-
-        temp_recipe.add(new RecipeItem("WHISKY",200));
-        temp_recipe.add(new RecipeItem("SOK POMARANCZOWY",150));
-        temp_recipe.add(new RecipeItem("+",0));
-        recipies.add(new Recipe("BARMAN SPECIAL",temp_recipe));
-        temp_recipe.clear();
-
-        temp_recipe.add(new RecipeItem("ALKO",100));
-        temp_recipe.add(new RecipeItem("+",0));
-        recipies.add(new Recipe("MOLOTOV",temp_recipe));
-        */
-    }
-
-    public ArrayList<Recipe> getRecipiesForUI(){
-        return recipies;
+        setRecipies(barmanDBHelper.getRecipies());
+        setBottles(barmanDBHelper.getBottles());
+        barmanDBHelper.close();
     }
 
     public boolean checkRecipeExist(String inName){
@@ -66,9 +41,17 @@ public class BarmanManager implements Serializable {
         }
     }
 
-    public boolean addNewRecipe(String inName, ArrayList<RecipeItem> items){
+    public boolean addNewRecipe(String inName, ArrayList<RecipeItem> items, Context ctx){
         if(checkRecipeExist(inName)) return false;
-        recipies.add(new Recipe(inName,items));
+        BarmanDBHelper barmanDBHelper = null;
+        try {
+            barmanDBHelper = new BarmanDBHelper(ctx);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        barmanDBHelper.addRecipe(new Recipe(inName,items));
+        setRecipies(barmanDBHelper.getRecipies());
+        barmanDBHelper.close();
         return true;
     }
 
@@ -79,9 +62,27 @@ public class BarmanManager implements Serializable {
     }
 
     public void removeRecipe(String recipeName){
-        for (int i = 0; i < recipies.size(); i++){
-            if (recipeName==recipies.get(i).getName()) recipies.remove(i);
+        BarmanDBHelper barmanDBHelper = null;
+        try {
+            barmanDBHelper = new BarmanDBHelper(ctx);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        barmanDBHelper.removeRecipe(recipeName);
+        setRecipies(barmanDBHelper.getRecipies());
+        barmanDBHelper.close();
+    }
+	
+    public void changeBottles(ArrayList<String> bottles, Context ctx){
+        BarmanDBHelper barmanDBHelper = null;
+        try {
+            barmanDBHelper = new BarmanDBHelper(ctx);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        barmanDBHelper.changeBottles(bottles);
+        setBottles(barmanDBHelper.getBottles());
+        barmanDBHelper.close();
     }
 
     //------------------------------------------------------
