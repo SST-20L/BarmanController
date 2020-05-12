@@ -83,6 +83,8 @@ public class NewRecipeActivity extends ParentActivity {
         int size = 0;
         boolean repeated = false;
         boolean valueZero = false;
+        boolean wrongname = false;
+
         for (int i = 0; i < NewRecipeItems.size(); i++){
             if ((i != NewRecipeItems.size()-1) && !NewRecipeItems.get(i).getName().equals("")) {
                 size++;
@@ -93,11 +95,13 @@ public class NewRecipeActivity extends ParentActivity {
                         j = NewRecipeItems.size();
                     }
                 }
-                if (valueZero||repeated) i = NewRecipeItems.size();
+                if (NewRecipeItems.get(i).getName().equals("+")) wrongname = true;
+                if (valueZero||repeated||wrongname) i = NewRecipeItems.size();
             }
         }
 
         if (name.getText().toString().equals("")) Toast.makeText(this,"Wymagana nazwa przepisu",Toast.LENGTH_SHORT).show();
+        else if (wrongname) Toast.makeText(this,"Nazwa skladnika nie moze byc '+'",Toast.LENGTH_SHORT).show();
         else if (repeated) Toast.makeText(this,"Nazwa skladnika sie powtarza",Toast.LENGTH_SHORT).show();
         else if (valueZero) Toast.makeText(this,"Skladnik ma podana wielkosc 0",Toast.LENGTH_SHORT).show();
         else if (size==0){
@@ -106,7 +110,7 @@ public class NewRecipeActivity extends ParentActivity {
         else {
             String recipeName = name.getText().toString();
             //Dodaj przepis, jeżeli nazwa nie jest już zajęta
-            boolean result = MenuActivity.getBarman().addNewRecipe(recipeName, NewRecipeItems);
+            boolean result = MenuActivity.getBarman().addNewRecipe(recipeName, NewRecipeItems, getBaseContext());
             if (result) {
                 String recipeIngName;
                 int recipeIngValue;

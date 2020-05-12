@@ -32,7 +32,7 @@ public class PourActivity extends ParentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_pour, R.id.parent);
-        recipies.addAll(MenuActivity.getBarman().getRecipiesForUI());
+        recipies.addAll(MenuActivity.getBarman().getRecipies());
 
         ListView lv = findViewById(R.id.recipies_recipe_list);
 
@@ -43,7 +43,7 @@ public class PourActivity extends ParentActivity {
     @Override
     protected void onResume(){
         recipies.clear();
-        recipies.addAll(MenuActivity.getBarman().getRecipiesForUI());
+        recipies.addAll(MenuActivity.getBarman().getRecipies());
         recipies.add(new Recipe("",new ArrayList<RecipeItem>()));
         adapter.notifyDataSetChanged();
         super.onResume();

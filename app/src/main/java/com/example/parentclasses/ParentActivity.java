@@ -30,12 +30,15 @@ import com.example.objectclasses.BarmanManager;
 import com.example.uiprojectv2.BluetoothService;
 import com.example.uiprojectv2.MenuActivity;
 
+import java.io.IOException;
+
 public class ParentActivity extends AppCompatActivity{
     private static final String TAG = "MY-DEB Parent";
     protected BluetoothService myService;
     Boolean isBound = false;
     private int counterBound = 0;
     private int counterUnbound = 0;
+    private Context ctx;
 
     protected void sendMessageToBarman(String message) {
         Log.d(TAG, "Sending to microcontroller "+message);
@@ -89,7 +92,12 @@ public class ParentActivity extends AppCompatActivity{
 
             switch(message) {
                 case "goToMenu": {
-                    BarmanManager barman = new BarmanManager("Testowy");
+                    BarmanManager barman = null;
+                    try {
+                        barman = new BarmanManager("Testowy", getBaseContext());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Intent newIntent = new Intent(getApplicationContext(), MenuActivity.class);
                     newIntent.putExtra("Barman", barman);
                     startActivity(newIntent);

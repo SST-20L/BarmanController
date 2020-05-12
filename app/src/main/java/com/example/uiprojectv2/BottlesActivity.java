@@ -61,7 +61,7 @@ public class BottlesActivity extends ParentActivity {
                 sendMessageToBarman("SET-BOTTLE "+ i + " " + name + "\r\n");
             }
         }
-        MenuActivity.getBarman().setBottles(bottles);
+        MenuActivity.getBarman().changeBottles(bottles,getBaseContext());
 
         savedChange = true;
         adapter.notifyDataSetChanged();
