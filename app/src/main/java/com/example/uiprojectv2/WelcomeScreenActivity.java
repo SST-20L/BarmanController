@@ -34,7 +34,6 @@ public class WelcomeScreenActivity extends ParentActivity {
 
     private final static int REQUEST_ENABLE_BT=1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private Toast btEnableToast;
 
     public void sendMessage(View view) {
         if (mBluetoothAdapter == null) {
@@ -59,7 +58,7 @@ public class WelcomeScreenActivity extends ParentActivity {
                 startActivity(intent);
                 break;
             case RESULT_CANCELED:
-                btEnableToast.makeText(this, "Proszę włączyć bluetooth", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Proszę włączyć bluetooth", Toast.LENGTH_SHORT).show();
             default:
                 break;
         }

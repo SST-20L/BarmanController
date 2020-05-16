@@ -9,13 +9,19 @@ import android.view.View;
 import com.example.objectclasses.BarmanManager;
 import com.example.parentclasses.ParentActivity;
 
+import java.util.ArrayList;
+
 public class MenuActivity extends ParentActivity {
     private static final String TAG = "MY-DEB MenuA";
     private static BarmanManager barman;
 
+
     protected void afterServiceConnected(){
-        sendMessageToBarman("GET-RECIPES\r\n");
-        sendMessageToBarman("GET-BOTTLES\r\n");
+        ArrayList<String> bottles = new ArrayList<>();
+        bottles.addAll(MenuActivity.getBarman().getBottles());
+        for(int i = 0; i < bottles.size(); ++i){
+            sendMessageToBarman("SET-BOTTLE +"+ i + " + " + bottles.get(i) + "  \r\n");
+        }
     }
 
     protected void updateActivity(String msg){

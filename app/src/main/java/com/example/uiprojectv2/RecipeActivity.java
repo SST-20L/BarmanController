@@ -35,7 +35,7 @@ public class RecipeActivity extends ParentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_recipies, R.id.parent);
-        recipies.addAll(MenuActivity.getBarman().getRecipies());
+        recipies.addAll(MenuActivity.getBarman().getRecipes());
         recipies.add(new Recipe("",new ArrayList<RecipeItem>()));
 
         ListView lv = findViewById(R.id.recipies_recipe_list);
@@ -47,7 +47,7 @@ public class RecipeActivity extends ParentActivity {
     @Override
     protected void onResume(){
         recipies.clear();
-        recipies.addAll(MenuActivity.getBarman().getRecipies());
+        recipies.addAll(MenuActivity.getBarman().getRecipes());
         recipies.add(new Recipe("",new ArrayList<RecipeItem>()));
         adapter.notifyDataSetChanged();
         super.onResume();
@@ -120,10 +120,9 @@ public class RecipeActivity extends ParentActivity {
                                 {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        sendMessageToBarman("DELETE_RECIPE " + recipe.getName()+"\r\n");
                                         MenuActivity.getBarman().removeRecipe(recipe.getName(),getBaseContext());
                                         recipies.clear();
-                                        recipies.addAll(MenuActivity.getBarman().getRecipies());
+                                        recipies.addAll(MenuActivity.getBarman().getRecipes());
                                         recipies.add(new Recipe("",new ArrayList<RecipeItem>()));
                                         notifyDataSetChanged();
                                     }

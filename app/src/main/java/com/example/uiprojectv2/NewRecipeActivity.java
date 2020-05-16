@@ -112,14 +112,6 @@ public class NewRecipeActivity extends ParentActivity {
             //Dodaj przepis, jeżeli nazwa nie jest już zajęta
             boolean result = MenuActivity.getBarman().addNewRecipe(recipeName, NewRecipeItems, getBaseContext());
             if (result) {
-                String recipeIngName;
-                int recipeIngValue;
-                sendMessageToBarman("ADD_RECIPE "+ recipeName +"\r\n");
-                for (int i = 0; i < NewRecipeItems.size(); i++){
-                    recipeIngName = NewRecipeItems.get(i).getName();
-                    recipeIngValue = NewRecipeItems.get(i).getValue();
-                    sendMessageToBarman("ADD_ING "+ recipeName + " " + recipeIngName + " " +recipeIngValue + "\r\n");
-                }
                 super.onBackPressed();
             }
             else Toast.makeText(this,"Zajeta nazwa",Toast.LENGTH_SHORT).show();

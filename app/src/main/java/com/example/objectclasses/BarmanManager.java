@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class BarmanManager implements Serializable {
     private static final String TAG = "MY-DEB BarmanMan";
 
-    public String barmanName;
+    private String barmanName;
     //Bottles
-    public ArrayList<String> bottles = new ArrayList<>();
+    private ArrayList<String> bottles = new ArrayList<>();
     //Recipies
-    public ArrayList<Recipe> recipies = new ArrayList<>();
+    private ArrayList<Recipe> recipies = new ArrayList<>();
 
     private boolean isPouringFinished = true;
 
@@ -23,17 +23,29 @@ public class BarmanManager implements Serializable {
         initializeBarman(inName, ctx);
     }
 
-    public void initializeBarman(String inName, Context ctx) throws IOException {
+    private void initializeBarman(String inName, Context ctx) throws IOException {
         barmanName = inName;
         BarmanDBHelper barmanDBHelper = new BarmanDBHelper(ctx);
 
-        setRecipies(barmanDBHelper.getRecipies());
+        setRecipes(barmanDBHelper.getRecipies());
         setBottles(barmanDBHelper.getBottles());
         barmanDBHelper.close();
 
     }
 
-    public boolean checkRecipeExist(String inName){
+    public ArrayList<RecipeItem> getRecipe(String recipeName){
+        ArrayList<RecipeItem> recipeItems = new ArrayList<>();
+
+        for(Recipe recipe : recipies){
+            if (recipe.getName().equals(recipeName)){
+                recipeItems = recipe.getItems();
+                break;
+            }
+        }
+        return recipeItems;
+    }
+
+    private boolean checkRecipeExist(String inName){
         for (Recipe recipe : recipies){
             if (recipe.getName().equals(inName)) return true;
         }
@@ -49,7 +61,7 @@ public class BarmanManager implements Serializable {
             e.printStackTrace();
         }
         barmanDBHelper.addRecipe(new Recipe(inName,items));
-        setRecipies(barmanDBHelper.getRecipies());
+        setRecipes(barmanDBHelper.getRecipies());
         barmanDBHelper.close();
         return true;
     }
@@ -62,7 +74,7 @@ public class BarmanManager implements Serializable {
             e.printStackTrace();
         }
         barmanDBHelper.removeRecipe(recipeName);
-        setRecipies(barmanDBHelper.getRecipies());
+        setRecipes(barmanDBHelper.getRecipies());
         barmanDBHelper.close();
     }
 	
@@ -79,7 +91,7 @@ public class BarmanManager implements Serializable {
     }
 
     //------------------------------------------------------
-    public ArrayList<Recipe> getRecipies() {
+    public ArrayList<Recipe> getRecipes() {
         return recipies;
     }
 
@@ -91,8 +103,8 @@ public class BarmanManager implements Serializable {
         return barmanName;
     }
 
-    public void setRecipies(ArrayList<Recipe> recipies) {
-        this.recipies = recipies;
+    public void setRecipes(ArrayList<Recipe> recipes) {
+        this.recipies = recipes;
     }
 
     public void setBottles(ArrayList<String> bottles) {
@@ -105,7 +117,6 @@ public class BarmanManager implements Serializable {
         this.barmanName = barmanName;
     }
 
-
     public void setStartRecipe(){
         isPouringFinished = false;
     }
@@ -114,64 +125,16 @@ public class BarmanManager implements Serializable {
         return isPouringFinished;
     }
 
-
-    //TODO: DEPRECATE
-    public boolean addNewRecipe(String inName){
-        if(checkRecipeExist(inName)) return false;
-        recipies.add(new Recipe(inName));
-        return true;
-    }
-    //TODO: DEPRECATE
-    public void addRecipeIng(String recName, String ingName, int ingAmount){
-        for (Recipe recipe : recipies){
-            if (recipe.getName().equals(recName)){
-                recipe.addItem(new RecipeItem(ingName,ingAmount));
-            }
-        }
-    }
-    //TODO:DEPRECATE
-    public void addRecipeName(String message){
-        String[] words = message.split(" ");
-        if(words.length ==  2 ){
-            addNewRecipe(words[1]);
-        }
-    }
-    //TODO: DEPRECATE
-    public void setBottle(String bottleName, int bottleIndex) {
-        this.bottles.set(bottleIndex, bottleName);
-    }
-    //TODO:DEPRECATE
-    public void changeBottle(String message){
-        String[] words = message.split(" ");
-        if(words.length  == 3 ){
-            setBottle(words[1], Integer.parseInt(words[2]));
-        }
-    }
-    //TODO:DEPRECATE
-    public void addRecipeIng(String message){
-        String[] words = message.split(" ");
-        if(words.length  == 4 ){
-            if(!checkRecipeExist(words[1])) return;
-            addRecipeIng(words[1], words[2], Integer.parseInt(words[3]));
-        }
-    }
-
     public void parseMessage(String message) {
         Log.d(TAG, "Parse message " + message);
         String[] words = message.split(" ");
         String firstWord = words[0];
         switch(firstWord){
-            case "FINISH-RECIPE":
+            case "SUCCESS":
                 isPouringFinished = true;
                 break;
-            case "BOTTLE":
-                //changeBottle(message);
-                break;
-            case "RECIPE_ING":
-                //addRecipeIng(message);
-                break;
-            case "RECIPE_NAME":
-                //addRecipeName(message);
+            case "HELLO":
+                Log.d(TAG, "Communication success");
                 break;
         }
     }

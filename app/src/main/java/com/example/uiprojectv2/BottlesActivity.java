@@ -58,7 +58,7 @@ public class BottlesActivity extends ParentActivity {
             String name = bottleField.getText().toString();
             if(bottles.get(i) != name){
                 bottles.set(i,name);
-                sendMessageToBarman("SET-BOTTLE "+ i + " " + name + "\r\n");
+                sendMessageToBarman("SET-BOTTLE + "+ i + " + " + name + " \r\n");
             }
         }
         MenuActivity.getBarman().changeBottles(bottles,getBaseContext());

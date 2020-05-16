@@ -10,7 +10,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.objectclasses.RecipeItem;
 import com.example.parentclasses.ParentActivity;
+
+import java.util.ArrayList;
 
 public class ProgressActivity extends ParentActivity {
     private static final String TAG = "MY-DEB ProgressA";
@@ -27,14 +30,18 @@ public class ProgressActivity extends ParentActivity {
 
     protected void afterServiceConnected(){
         Log.d(TAG, "Start pouring " + selectedRecipe);
+        ArrayList<RecipeItem> RecipeItems = MenuActivity.getBarman().getRecipe(selectedRecipe);
+        sendMessageToBarman("START_RECIPE \r\n");
+        sendMessageToBarman(RecipeItems.size() + " \r\n");
+        for(int i = 0 ; i < RecipeItems.size(); ++i){
+            sendMessageToBarman(RecipeItems.get(i).name + " + " + RecipeItems.get(i).value +" \r\n");
+        }
         MenuActivity.getBarman().setStartRecipe();
-        sendMessageToBarman("START " + selectedRecipe +"\r\n");
     }
 
     protected void updateActivity(String msg){
         MenuActivity.getBarman().parseMessage(msg);
         if(MenuActivity.getBarman().checkEndRecipe()){
-            // TODO display msg about end
             Log.d(TAG, "End recipe "+ selectedRecipe);
         }
     }
