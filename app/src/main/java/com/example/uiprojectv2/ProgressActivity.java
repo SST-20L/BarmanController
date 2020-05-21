@@ -31,10 +31,10 @@ public class ProgressActivity extends ParentActivity {
     protected void afterServiceConnected(){
         Log.d(TAG, "Start pouring " + selectedRecipe);
         ArrayList<RecipeItem> RecipeItems = MenuActivity.getBarman().getRecipe(selectedRecipe);
-        sendMessageToBarman("START_RECIPE \r\n");
-        sendMessageToBarman(RecipeItems.size() + " \r\n");
+        sendMessageToBarman("START_RECIPE\r\n");
+        sendMessageToBarman(RecipeItems.size() + "\r\n");
         for(int i = 0 ; i < RecipeItems.size(); ++i){
-            sendMessageToBarman(RecipeItems.get(i).name + " + " + RecipeItems.get(i).value +" \r\n");
+            sendMessageToBarman(RecipeItems.get(i).name + "+" + RecipeItems.get(i).value +"\r\n");
         }
         MenuActivity.getBarman().setStartRecipe();
     }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,9 +57,10 @@ public class BottlesActivity extends ParentActivity {
         for (int i = 0; i < itemNo; i++){
             EditText bottleField = (EditText)lv.getChildAt(i).findViewById(R.id.single_edittext);
             String name = bottleField.getText().toString();
-            if(bottles.get(i) != name){
+            if(!bottles.get(i).equals(name)){
+                Log.d(TAG, "butelki" + bottles.get(i) + " " + name );
                 bottles.set(i,name);
-                sendMessageToBarman("SET-BOTTLE + "+ i + " + " + name + " \r\n");
+                sendMessageToBarman("SET-BOTTLE+"+ i + "+" + name + "\r\n");
             }
         }
         MenuActivity.getBarman().changeBottles(bottles,getBaseContext());

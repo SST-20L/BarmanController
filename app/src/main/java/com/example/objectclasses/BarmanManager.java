@@ -132,6 +132,7 @@ public class BarmanManager implements Serializable {
         switch(firstWord){
             case "SUCCESS":
                 isPouringFinished = true;
+                Log.d(TAG, "SUCCESS received");
                 break;
             case "HELLO":
                 Log.d(TAG, "Communication success");

@@ -93,6 +93,7 @@ public class BluetoothService extends Service {
 
     private final BroadcastReceiver broadCastReceiverBluetooth = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "inside broadcastreceiverbt");
             String action = intent.getAction();
             if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, mBluetoothAdapter.ERROR);
