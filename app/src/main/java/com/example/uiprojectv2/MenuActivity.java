@@ -20,7 +20,7 @@ public class MenuActivity extends ParentActivity {
         ArrayList<String> bottles = new ArrayList<>();
         bottles.addAll(MenuActivity.getBarman().getBottles());
         for(int i = 0; i < bottles.size(); ++i){
-            sendMessageToBarman("SET-BOTTLE+"+ i + "+" + bottles.get(i) + "\r\n");
+            sendMessageToBarman("SET-BOTTLE+"+ i + "+" + bottles.get(i) + "\0");
         }
     }
 

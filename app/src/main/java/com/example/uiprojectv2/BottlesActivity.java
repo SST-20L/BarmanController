@@ -60,7 +60,7 @@ public class BottlesActivity extends ParentActivity {
             if(!bottles.get(i).equals(name)){
                 Log.d(TAG, "butelki" + bottles.get(i) + " " + name );
                 bottles.set(i,name);
-                sendMessageToBarman("SET-BOTTLE+"+ i + "+" + name + "\r\n");
+                sendMessageToBarman("SET-BOTTLE+"+ i + "+" + name + "\0");
             }
         }
         MenuActivity.getBarman().changeBottles(bottles,getBaseContext());

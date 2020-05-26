@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.objectclasses.BarmanManager;
 import com.example.uiprojectv2.BluetoothService;
+import com.example.uiprojectv2.DeviceSelectActivity;
 import com.example.uiprojectv2.MenuActivity;
 
 import java.io.IOException;
@@ -44,11 +45,6 @@ public class ParentActivity extends AppCompatActivity{
         Log.d(TAG, "Sending to microcontroller "+message);
         if(myService != null){
             myService.write(message);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 

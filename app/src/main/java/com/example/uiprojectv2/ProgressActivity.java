@@ -29,12 +29,17 @@ public class ProgressActivity extends ParentActivity {
     boolean finished = false;
 
     protected void afterServiceConnected(){
+        ArrayList<String> bottles = new ArrayList<>();
+        bottles.addAll(MenuActivity.getBarman().getBottles());
+        for(int i = 0; i < bottles.size(); ++i){
+            sendMessageToBarman("SET-BOTTLE+"+ i + "+" + bottles.get(i) + "\0");
+        }
         Log.d(TAG, "Start pouring " + selectedRecipe);
         ArrayList<RecipeItem> RecipeItems = MenuActivity.getBarman().getRecipe(selectedRecipe);
-        sendMessageToBarman("START_RECIPE\r\n");
-        sendMessageToBarman(RecipeItems.size() + "\r\n");
+        sendMessageToBarman("START_RECIPE\0");
+        sendMessageToBarman(RecipeItems.size() + "\0");
         for(int i = 0 ; i < RecipeItems.size(); ++i){
-            sendMessageToBarman(RecipeItems.get(i).name + "+" + RecipeItems.get(i).value +"\r\n");
+            sendMessageToBarman(RecipeItems.get(i).name + "+" + RecipeItems.get(i).value +"\0");
         }
         MenuActivity.getBarman().setStartRecipe();
     }
