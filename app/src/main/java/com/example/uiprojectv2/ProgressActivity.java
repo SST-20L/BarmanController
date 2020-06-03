@@ -11,11 +11,16 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.objectclasses.RecipeItem;
 import com.example.parentclasses.ParentActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ProgressActivity extends ParentActivity {
     private static final String TAG = "MY-DEB ProgressA";
@@ -33,7 +38,7 @@ public class ProgressActivity extends ParentActivity {
 
     boolean finished = false;
 
-    private Handler customHandler = new Handler();
+    private final Handler customHandler = new Handler();
 
     protected void afterServiceConnected(){
         ArrayList<String> bottles = new ArrayList<>();
@@ -57,7 +62,7 @@ public class ProgressActivity extends ParentActivity {
             Log.d(TAG, "End recipe "+ selectedRecipe);
             realProgress = recipeMaxProgress;
 
-            customHandler.removeCallbacks(updateTimerThread);
+            stoptimertask();
 
             finished = true;
             TextView progressClose = findViewById(R.id.progress_close);
@@ -106,7 +111,7 @@ public class ProgressActivity extends ParentActivity {
         //do zastąpienia przez listenera na bt - odbieranie dopóki realprogress<recipeMaxProgress
 
         startTime = SystemClock.uptimeMillis();
-        customHandler.postDelayed(updateTimerThread, 0);
+        startTimer();
 
     }
 
@@ -128,36 +133,60 @@ public class ProgressActivity extends ParentActivity {
         pb.setProgress((int)vProgress);
     }
 
+
+    Timer timer;
+    TimerTask timerTask;
+
+    public void startTimer() {
+        //set a new Timer
+        timer = new Timer();
+
+        //initialize the TimerTask's job
+        initializeTimerTask();
+
+        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
+        timer.schedule(timerTask, 0, 50); //
+    }
+
+    public void stoptimertask() {
+        //stop the timer, if it's not already null
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+
     private long startTime = 0L;
     private long pMillis = 0L;
 
-    private Runnable updateTimerThread = new Runnable() {
+    public void initializeTimerTask() {
 
+        timerTask = new TimerTask() {
+            public void run() {
 
-        public void run() {
-            while(true) {
-                try {
-                    wait(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                long cMillis = SystemClock.uptimeMillis() - startTime;
-                Log.d(TAG, "dzialaj stary");
-                if (pMillis != cMillis) {
-                    int milliseconds = (int) (cMillis % 1000);
-                    if (milliseconds % 10 == 0) {
+                //use a handler to run a toast that shows the current timestamp
+                customHandler.post(new Runnable() {
+                    public void run() {
+                        //get the current timeStamp
+                        long cMillis = SystemClock.uptimeMillis() - startTime;
 
-                        if (vProgress != nProgress) {
-                            vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
+                        if (pMillis != cMillis) {
+                            int milliseconds = (int) (cMillis % 1000);
+                            if (milliseconds % 10 == 0) {
+
+                                if (vProgress != nProgress) {
+                                    vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
+                                }
+                                Log.d(TAG, "UpdateTimer v progress : " + vProgress);
+                                setProgress();
+                                pMillis = cMillis;
+                            }
                         }
-                        Log.d(TAG, "UpdateTimer v progress : " + vProgress);
-                        setProgress();
-                        pMillis = cMillis;
-                        customHandler.postDelayed(this, 0);
                     }
-                }
+                });
             }
-        }
+        };
+    }
 
-    };
 }
