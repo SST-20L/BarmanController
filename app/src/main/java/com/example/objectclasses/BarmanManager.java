@@ -17,6 +17,7 @@ public class BarmanManager implements Serializable {
     private ArrayList<Recipe> recipies = new ArrayList<>();
 
     private boolean isPouringFinished = true;
+    private int progress = 0;
 
     //konstruktor
     public BarmanManager(String inName, Context ctx) throws IOException {
@@ -102,6 +103,9 @@ public class BarmanManager implements Serializable {
     public String getBarmanName() {
         return barmanName;
     }
+    public int getProgress() {
+        return progress;
+    }
 
     public void setRecipes(ArrayList<Recipe> recipes) {
         this.recipies = recipes;
@@ -117,7 +121,12 @@ public class BarmanManager implements Serializable {
         this.barmanName = barmanName;
     }
 
+    public void setProgress(int inProgress){
+        progress = inProgress;
+    }
+
     public void setStartRecipe(){
+        progress = 0;
         isPouringFinished = false;
     }
 
@@ -129,6 +138,12 @@ public class BarmanManager implements Serializable {
         Log.d(TAG, "Parse message " + message);
         String[] words = message.split(" ");
         String firstWord = words[0];
+        int i =0;
+        for(String word : words)
+        {
+            Log.d(TAG, word + " index " + i);
+            ++i;
+        }
         switch(firstWord){
             case "SUCCESS":
                 isPouringFinished = true;
@@ -136,6 +151,13 @@ public class BarmanManager implements Serializable {
                 break;
             case "HELLO":
                 Log.d(TAG, "Communication success");
+                break;
+            case "PROGRESS":
+                String secondWord = words[1];
+                Log.d(TAG, "Set progress to: "+secondWord);
+                if (!isPouringFinished) progress = Integer.parseInt(secondWord);
+                break;
+            default:
                 break;
         }
     }
