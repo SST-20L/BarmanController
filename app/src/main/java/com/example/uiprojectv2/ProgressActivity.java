@@ -126,7 +126,6 @@ public class ProgressActivity extends ParentActivity {
     }
 
     private long startTime = 0L;
-    private long cMillis = 0L;
     private long pMillis = 0L;
 
     private Runnable updateTimerThread = new Runnable() {
@@ -134,17 +133,17 @@ public class ProgressActivity extends ParentActivity {
 
         public void run() {
 
-            cMillis = SystemClock.uptimeMillis() - startTime;
+            long cMillis = SystemClock.uptimeMillis() - startTime;
 
-            if (pMillis!=cMillis){
+            if (pMillis!= cMillis){
                 int milliseconds = (int) (cMillis % 1000);
                 if (milliseconds%10==0){
 
                     if (vProgress!=nProgress){
-                        vProgress=vProgress+(1/100)*(nProgress-prevProgress);
+                        vProgress=vProgress+(double)(1/100)*(nProgress-prevProgress);
                     }
                     setProgress();
-                    pMillis=cMillis;
+                    pMillis= cMillis;
                     customHandler.postDelayed(this, 0);
                 }
             }
