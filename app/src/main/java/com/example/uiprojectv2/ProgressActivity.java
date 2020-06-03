@@ -55,6 +55,7 @@ public class ProgressActivity extends ParentActivity {
         if (MenuActivity.getBarman().checkEndRecipe()) {
             Log.d(TAG, "End recipe " + selectedRecipe);
             realProgress = recipeMaxProgress;
+            vProgress = progressCeil*progressMax;
 
             setProgress();
             stoptimertask();
@@ -159,7 +160,7 @@ public class ProgressActivity extends ParentActivity {
                     public void run() {
                         //get the current timeStamp
                         if (vProgress <= nProgress) {
-                            vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
+                            vProgress = vProgress + (double) (0.1 * (nProgress - prevProgress));
                             if (vProgress>nProgress) vProgress = nProgress;
                         }
                         Log.d(TAG, "UpdateTimer v progress : " + vProgress);
