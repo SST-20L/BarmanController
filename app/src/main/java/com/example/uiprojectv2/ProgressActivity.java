@@ -3,22 +3,16 @@ package com.example.uiprojectv2;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.objectclasses.RecipeItem;
 import com.example.parentclasses.ParentActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,26 +34,26 @@ public class ProgressActivity extends ParentActivity {
 
     private final Handler customHandler = new Handler();
 
-    protected void afterServiceConnected(){
+    protected void afterServiceConnected() {
         ArrayList<String> bottles = new ArrayList<>();
         bottles.addAll(MenuActivity.getBarman().getBottles());
-        for(int i = 0; i < bottles.size(); ++i){
-            sendMessageToBarman("SET-BOTTLE+"+ i + "+" + bottles.get(i) + "\0");
+        for (int i = 0; i < bottles.size(); ++i) {
+            sendMessageToBarman("SET-BOTTLE+" + i + "+" + bottles.get(i) + "\0");
         }
         Log.d(TAG, "Start pouring " + selectedRecipe);
         ArrayList<RecipeItem> RecipeItems = MenuActivity.getBarman().getRecipe(selectedRecipe);
         sendMessageToBarman("START_RECIPE\0");
         sendMessageToBarman(RecipeItems.size() + "\0");
-        for(int i = 0 ; i < RecipeItems.size(); ++i){
-            sendMessageToBarman(RecipeItems.get(i).name + "+" + RecipeItems.get(i).value +"\0");
+        for (int i = 0; i < RecipeItems.size(); ++i) {
+            sendMessageToBarman(RecipeItems.get(i).name + "+" + RecipeItems.get(i).value + "\0");
         }
         MenuActivity.getBarman().setStartRecipe();
     }
 
-    protected void updateActivity(String msg){
+    protected void updateActivity(String msg) {
         MenuActivity.getBarman().parseMessage(msg);
-        if(MenuActivity.getBarman().checkEndRecipe()){
-            Log.d(TAG, "End recipe "+ selectedRecipe);
+        if (MenuActivity.getBarman().checkEndRecipe()) {
+            Log.d(TAG, "End recipe " + selectedRecipe);
             realProgress = recipeMaxProgress;
 
             stoptimertask();
@@ -73,15 +67,14 @@ public class ProgressActivity extends ParentActivity {
                     ProgressActivity.super.onBackPressed();
                 }
             });
-        }
-        else{
+        } else {
             realProgress = MenuActivity.getBarman().getProgress();
             Log.d(TAG, "real progress : " + realProgress);
 
-            if (vProgress==nProgress) prevProgress=nProgress;
+            if (vProgress == nProgress) prevProgress = nProgress;
 
 
-            double realPercentage = realProgress/recipeMaxProgress;
+            double realPercentage = realProgress / recipeMaxProgress;
             nProgress = Math.floor(realPercentage * progressCeil * progressMax);
             Log.d(TAG, "n progress : " + nProgress);
         }
@@ -110,27 +103,26 @@ public class ProgressActivity extends ParentActivity {
 
         //do zastąpienia przez listenera na bt - odbieranie dopóki realprogress<recipeMaxProgress
 
-        startTime = SystemClock.uptimeMillis();
         startTimer();
 
     }
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (finished) super.onBackPressed();
         else super.onBackPressed(true, "Wciśnij ponownie, aby cofnąć");
     }
 
-    private void setProgress(){
+    private void setProgress() {
         TextView progressText = findViewById(R.id.progress_perc);
-        int viewableProgress = (int)Math.floor(realProgress/recipeMaxProgress*100);
+        int viewableProgress = (int) Math.floor(realProgress / recipeMaxProgress * 100);
 
         String progressStr = viewableProgress + "%";
         progressText.setText(progressStr);
 
         ProgressBar pb = findViewById(R.id.vertical_progressbar);
-        pb.setProgress((int)vProgress);
+        pb.setProgress((int) vProgress);
     }
 
 
@@ -156,10 +148,6 @@ public class ProgressActivity extends ParentActivity {
         }
     }
 
-
-    private long startTime = 0L;
-    private long pMillis = 0L;
-
     public void initializeTimerTask() {
 
         timerTask = new TimerTask() {
@@ -169,20 +157,11 @@ public class ProgressActivity extends ParentActivity {
                 customHandler.post(new Runnable() {
                     public void run() {
                         //get the current timeStamp
-                        long cMillis = SystemClock.uptimeMillis() - startTime;
-
-                        if (pMillis != cMillis) {
-                            int milliseconds = (int) (cMillis % 1000);
-                            if (milliseconds % 10 == 0) {
-
-                                if (vProgress <= nProgress) {
-                                    vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
-                                }
-                                Log.d(TAG, "UpdateTimer v progress : " + vProgress);
-                                setProgress();
-                                pMillis = cMillis;
-                            }
+                        if (vProgress <= nProgress) {
+                            vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
                         }
+                        Log.d(TAG, "UpdateTimer v progress : " + vProgress);
+                        setProgress();
                     }
                 });
             }
