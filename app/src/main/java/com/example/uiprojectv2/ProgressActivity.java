@@ -159,6 +159,7 @@ public class ProgressActivity extends ParentActivity {
                         //get the current timeStamp
                         if (vProgress <= nProgress) {
                             vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
+                            if (vProgress>nProgress) vProgress = nProgress;
                         }
                         Log.d(TAG, "UpdateTimer v progress : " + vProgress);
                         setProgress();
