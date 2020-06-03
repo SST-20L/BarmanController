@@ -71,11 +71,14 @@ public class ProgressActivity extends ParentActivity {
         }
         else{
             realProgress = MenuActivity.getBarman().getProgress();
+            Log.d(TAG, "real progress : " + realProgress);
 
             if (vProgress==nProgress) prevProgress=nProgress;
 
+
             double realPercentage = realProgress/recipeMaxProgress;
             nProgress = Math.floor(realPercentage * progressCeil * progressMax);
+            Log.d(TAG, "n progress : " + nProgress);
         }
 
     }
@@ -132,19 +135,26 @@ public class ProgressActivity extends ParentActivity {
 
 
         public void run() {
+            while(true) {
+                try {
+                    wait(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                long cMillis = SystemClock.uptimeMillis() - startTime;
+                Log.d(TAG, "dzialaj stary");
+                if (pMillis != cMillis) {
+                    int milliseconds = (int) (cMillis % 1000);
+                    if (milliseconds % 10 == 0) {
 
-            long cMillis = SystemClock.uptimeMillis() - startTime;
-
-            if (pMillis!= cMillis){
-                int milliseconds = (int) (cMillis % 1000);
-                if (milliseconds%10==0){
-
-                    if (vProgress!=nProgress){
-                        vProgress=vProgress+(double)(1/100)*(nProgress-prevProgress);
+                        if (vProgress != nProgress) {
+                            vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
+                        }
+                        Log.d(TAG, "UpdateTimer v progress : " + vProgress);
+                        setProgress();
+                        pMillis = cMillis;
+                        customHandler.postDelayed(this, 0);
                     }
-                    setProgress();
-                    pMillis= cMillis;
-                    customHandler.postDelayed(this, 0);
                 }
             }
         }

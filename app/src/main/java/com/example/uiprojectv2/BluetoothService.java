@@ -123,10 +123,12 @@ public class BluetoothService extends Service {
         bluetoothHandler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
+                Log.d(TAG, "in handle msg");
                 super.handleMessage(msg);
                 if (msg.what == 0) {
                     String readMessage = (String) msg.obj;
                     recDataString.append(readMessage);
+                    Log.d(TAG, "msg: " + readMessage);
                     while(true){
                         int endOfLineIndex = recDataString.indexOf("~");
                         if (endOfLineIndex > 0) {

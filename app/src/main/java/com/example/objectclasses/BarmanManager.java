@@ -138,6 +138,12 @@ public class BarmanManager implements Serializable {
         Log.d(TAG, "Parse message " + message);
         String[] words = message.split(" ");
         String firstWord = words[0];
+        int i =0;
+        for(String word : words)
+        {
+            Log.d(TAG, word + " index " + i);
+            ++i;
+        }
         switch(firstWord){
             case "SUCCESS":
                 isPouringFinished = true;
