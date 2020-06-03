@@ -56,6 +56,7 @@ public class ProgressActivity extends ParentActivity {
             Log.d(TAG, "End recipe " + selectedRecipe);
             realProgress = recipeMaxProgress;
 
+            setProgress();
             stoptimertask();
 
             finished = true;
