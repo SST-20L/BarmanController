@@ -175,7 +175,7 @@ public class ProgressActivity extends ParentActivity {
                             int milliseconds = (int) (cMillis % 1000);
                             if (milliseconds % 10 == 0) {
 
-                                if (vProgress != nProgress) {
+                                if (vProgress <= nProgress) {
                                     vProgress = vProgress + (double) (1 / 100) * (nProgress - prevProgress);
                                 }
                                 Log.d(TAG, "UpdateTimer v progress : " + vProgress);
